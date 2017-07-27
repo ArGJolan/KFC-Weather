@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">KFC Weather</string>
+    <string name="username_input_text">Name</string>
+    <string name="location_input_text">Location</string>
+    <string name="confirm_button_text">Confirm</string>
+    <string name="salutation">Hi</string>
+    <string name="from">from</string>
+    <string name="temp_is_warm">It is very warm currently</string>
+    <string name="temp_is_normal">It is nice today</string>
+    <string name="temp_is_cold">It is cold right now</string>
+    <string name="temp_is_freezing">It is freezing</string>
+</resources>
