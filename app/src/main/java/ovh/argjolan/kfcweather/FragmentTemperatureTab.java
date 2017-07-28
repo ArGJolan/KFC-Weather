@@ -24,7 +24,7 @@ public class FragmentTemperatureTab extends Fragment {
         Bundle arguments = getArguments();
         messageString = "Hi " + arguments.getString("username") + " from " +
                 arguments.getString("location") + ". It's currently " +
-                arguments.getDouble("temperature") + arguments.getString("unit")  + " here.";
+                arguments.getString("temperature") + arguments.getString("unit")  + " here.";
 
         messageTextView.setText(messageString);
 
