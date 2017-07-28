@@ -52,14 +52,16 @@ public class DisplayWeather extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String requestUrl = String.format(getResources().getString(R.string.api_endpoint), location);
 
-        /// TODO : Asynchronous loading
-        /// TODO : Add customized messages depending on the temperature
+        setupViewPager((ViewPager) findViewById(R.id.container));
+        ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
+
+        /// TODO : Change temperature color depending on the temperature
+        /// TODO : API exceptions
         StringRequest stringRequest = new StringRequest(Request.Method.GET, requestUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("KFC", response);
                             JSONObject conditionContent = new JSONObject(response).getJSONObject("query")
                                     .getJSONObject("results").getJSONObject("channel")
                                     .getJSONObject("item").getJSONObject("condition");
@@ -75,19 +77,56 @@ public class DisplayWeather extends AppCompatActivity {
                         } catch (JSONException e) {
                             Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
                         }
-                        setupViewPager((ViewPager) findViewById(R.id.container));
-                        ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
+                        refreshFragmentsDisplay();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        setupViewPager((ViewPager) findViewById(R.id.container));
-                        ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
                         Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
                     }
                 });
         queue.add(stringRequest);
+    }
+
+    /**
+     * Sets th temperature and status message according to the result of the request
+     * displays the welcoming message in each fragment
+     */
+    void refreshFragmentsDisplay() {
+        String statusMessage = getStatusMessage();
+
+        ((FragmentTemperatureTab) adapter.getItem(0)).setTemperature(kelvinTemperature);
+        ((FragmentTemperatureTab) adapter.getItem(1)).setTemperature(fahrenheitTemperature);
+        ((FragmentTemperatureTab) adapter.getItem(2)).setTemperature(celsiusTemperature);
+
+        ((FragmentTemperatureTab) adapter.getItem(0)).setStatusMessage(statusMessage);
+        ((FragmentTemperatureTab) adapter.getItem(1)).setStatusMessage(statusMessage);
+        ((FragmentTemperatureTab) adapter.getItem(2)).setStatusMessage(statusMessage);
+
+        ((FragmentTemperatureTab) adapter.getItem(0)).safeDisplayMessage();
+        ((FragmentTemperatureTab) adapter.getItem(1)).safeDisplayMessage();
+        ((FragmentTemperatureTab) adapter.getItem(2)).safeDisplayMessage();
+    }
+
+    /**
+     * @return a string depending on the temperature
+     */
+    String getStatusMessage() {
+        if (!celsiusTemperature.equals("-")) {
+            Double numericalDegreesTemperature = Double.parseDouble(celsiusTemperature);
+            if (numericalDegreesTemperature <= 0){
+                return getResources().getString(R.string.temp_is_freezing);
+            }
+            if (numericalDegreesTemperature <= 15) {
+                return getResources().getString(R.string.temp_is_cold);
+            }
+            if (numericalDegreesTemperature <= 27) {
+                return getResources().getString(R.string.temp_is_normal);
+            }
+            return getResources().getString(R.string.temp_is_warm);
+        }
+        return getResources().getString(R.string.no_info);
     }
 
     /**
@@ -118,6 +157,7 @@ public class DisplayWeather extends AppCompatActivity {
         bundle.putString("location", location);
         bundle.putString("unit", temperatureUnit);
         bundle.putString("temperature", temperatureValue);
+        bundle.putString("statusMessage", getStatusMessage());
 
         return bundle;
     }
