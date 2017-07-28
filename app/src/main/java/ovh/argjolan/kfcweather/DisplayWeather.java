@@ -28,7 +28,7 @@ public class DisplayWeather extends AppCompatActivity {
 
     private SectionsPageAdapter adapter;
 
-    String api_endpoint = "https://query.yahooapis.com/v1/public/yql?q=select%%20item.condition%%20from%%20weather.forecast%%20where%%20woeid%%20in%%20(select%%20woeid%%20from%%20geo.places(1)%%20where%%20text=%%22%s%%22)&format=json";
+    private String api_endpoint = "https://query.yahooapis.com/v1/public/yql?q=select%%20item.condition%%20from%%20weather.forecast%%20where%%20woeid%%20in%%20(select%%20woeid%%20from%%20geo.places(1)%%20where%%20text=%%22%s%%22)&format=json";
 
     private String username;
     private String location;
@@ -56,8 +56,6 @@ public class DisplayWeather extends AppCompatActivity {
         setupViewPager((ViewPager) findViewById(R.id.container));
         ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
 
-        /// TODO : Change temperature color depending on the temperature
-        /// TODO : API exceptions
         StringRequest stringRequest = new StringRequest(Request.Method.GET, requestUrl,
                 new Response.Listener<String>() {
                     @Override
@@ -78,7 +76,6 @@ public class DisplayWeather extends AppCompatActivity {
                             kelvinTemperature = Double.toString(Math.floor(numericalKelvinTemperature * 10) / 10);
                         } catch (JSONException e) {
                             Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
-                            Log.e("KFC", "ERROR JSON");
                         }
                         refreshFragmentsDisplay();
                     }
@@ -87,7 +84,6 @@ public class DisplayWeather extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
-                        Log.e("KFC", "ERROR REQUEST");
                     }
                 });
         queue.add(stringRequest);

@@ -80,22 +80,27 @@ public class FragmentTemperatureTab extends Fragment {
                 location,
                 statusMessage));
 
+        int salutationLength = getResources().getString(R.string.salutation).length();
+        int fromLength = getResources().getString(R.string.salutation).length();
+
+        // sets bold style to user and location
         messageString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                getResources().getString(R.string.salutation).length() + 1,
-                getResources().getString(R.string.salutation).length() + username.length() + 1,
+                salutationLength + 1,
+                salutationLength + username.length() + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         messageString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + 3,
-                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + location.length() + 3,
+                salutationLength + username.length() + fromLength + 3,
+                salutationLength + username.length() + fromLength + location.length() + 3,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        // sets white text style to user and location
         messageString.setSpan(new ForegroundColorSpan(Color.WHITE),
-                getResources().getString(R.string.salutation).length() + 1,
-                getResources().getString(R.string.salutation).length() + username.length() + 1,
+                salutationLength + 1,
+                salutationLength + username.length() + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         messageString.setSpan(new ForegroundColorSpan(Color.WHITE),
-                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + 3,
-                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + location.length() + 3,
+                salutationLength + username.length() + fromLength + 3,
+                salutationLength + username.length() + fromLength + location.length() + 3,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         temperatureString = String.format("%s%s",
@@ -106,6 +111,9 @@ public class FragmentTemperatureTab extends Fragment {
         temperatureTextView.setText(temperatureString);
     }
 
+    /**
+     * same as displayMessage() but checks if the fragment has been created
+     */
     public void safeDisplayMessage() {
         if (getView() != null) {
             displayMessage();
