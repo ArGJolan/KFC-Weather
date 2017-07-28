@@ -73,7 +73,7 @@ public class DisplayWeather extends AppCompatActivity {
                             Double numericalKelvinTemperature = numericalCelsiusTemperature + 273.15;
                             kelvinTemperature = Double.toString(Math.floor(numericalKelvinTemperature * 10) / 10);
                         } catch (JSONException e) {
-                            Toast.makeText(getParent(), "An error has occured", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
                         }
                         setupViewPager((ViewPager) findViewById(R.id.container));
                         ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
@@ -84,7 +84,7 @@ public class DisplayWeather extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         setupViewPager((ViewPager) findViewById(R.id.container));
                         ((TabLayout) findViewById(R.id.temperatureUnitsTabs)).setupWithViewPager((ViewPager) findViewById(R.id.container));
-                        Toast.makeText(getParent(), "An error has occured", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "An error has occured", Toast.LENGTH_SHORT).show();
                     }
                 });
         queue.add(stringRequest);
