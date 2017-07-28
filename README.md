@@ -4,9 +4,9 @@
 
 Android application realised for a job interview.
 
-It shows the temperature of a city chose by the user.
+It shows the temperature of a city chosen by the user.
 
-This application uses the Yahoo Weather API
+This application uses the Yahoo Weather API.
 
 ## Demonstration
 
