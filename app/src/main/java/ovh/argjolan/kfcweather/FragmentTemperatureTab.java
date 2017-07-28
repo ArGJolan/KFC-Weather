@@ -1,7 +1,11 @@
 package ovh.argjolan.kfcweather;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +20,7 @@ public class FragmentTemperatureTab extends Fragment {
     TextView messageTextView;
     TextView temperatureTextView;
 
-    String messageString;
+    SpannableStringBuilder messageString;
     String temperatureString;
 
     String location;
@@ -69,12 +73,31 @@ public class FragmentTemperatureTab extends Fragment {
      * displays greetings message and temperature
      */
     public void displayMessage() {
-        messageString = String.format("%s %s %s %s. %s",
+        messageString = new SpannableStringBuilder(String.format("%s %s %s %s. %s",
                 getResources().getString(R.string.salutation),
                 username,
                 getResources().getString(R.string.from),
                 location,
-                statusMessage);
+                statusMessage));
+
+        messageString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                getResources().getString(R.string.salutation).length() + 1,
+                getResources().getString(R.string.salutation).length() + username.length() + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        messageString.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + 3,
+                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + location.length() + 3,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        messageString.setSpan(new ForegroundColorSpan(Color.WHITE),
+                getResources().getString(R.string.salutation).length() + 1,
+                getResources().getString(R.string.salutation).length() + username.length() + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        messageString.setSpan(new ForegroundColorSpan(Color.WHITE),
+                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + 3,
+                getResources().getString(R.string.salutation).length() +  + username.length() + getResources().getString(R.string.from).length() + location.length() + 3,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         temperatureString = String.format("%s%s",
                 temperature,
                 unit);
