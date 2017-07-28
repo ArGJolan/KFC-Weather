@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayWeather"></activity>
+        <activity
+            android:name=".DisplayWeather"
+            android:label="@string/title_activity_display_weather"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

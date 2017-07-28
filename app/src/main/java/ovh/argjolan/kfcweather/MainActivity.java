@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onConfirmButtonPressed(View v) {
         EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-        EditText    locationEditText = (EditText) findViewById(R.id.locationEditText);
-        String      username = usernameEditText.getText().toString().trim();
-        String      location = locationEditText.getText().toString().trim();
+        EditText locationEditText = (EditText) findViewById(R.id.locationEditText);
+        String username = usernameEditText.getText().toString().trim();
+        String location = locationEditText.getText().toString().trim();
 
         if (!username.isEmpty() && !location.isEmpty()) {
             Intent displayWeatherIntent = new Intent(MainActivity.this, DisplayWeather.class);

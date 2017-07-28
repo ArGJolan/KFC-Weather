@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
     tools:context="ovh.argjolan.kfcweather.DisplayWeather">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/temperatureUnitsTab"
-        android:layout_width="0dp"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@android:color/background_light"
-        app:tabSelectedTextColor="@android:color/background_light"
-        app:tabTextColor="@color/colorText">
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/kelvinTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="K" />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/fahrenheitDegreesTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="°F" />
+    </android.support.design.widget.AppBarLayout>
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/celsiusDegreesTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="°C" />
-    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

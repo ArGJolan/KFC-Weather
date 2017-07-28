@@ -9,4 +9,7 @@
     <string name="temp_is_normal">It is nice today</string>
     <string name="temp_is_cold">It is cold right now</string>
     <string name="temp_is_freezing">It is freezing</string>
+    <string name="title_activity_display_weather">DisplayWeather</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
